@@ -1,0 +1,39 @@
+고급C++프로그래밍 6주차 강의자료
+
+q1. (객체).멤버함수로 구현하여 (*p).멤버함수로 구현하면 된다. 
+q2. Line 3, 4 없이 바로 5를 실행하면 작동하지 않는다. p가 실제로 객체를 만들지 않음 포인터 객체에 실제 객체 X 객체를 만들어야 작동한다
+q3. (*p).set_students("WUGEONG", "2023", "ISTJ");이렇게 작성하면 모든 객체를 "SUGEONG", "2023", "ISTJ"로 만들 수 있다.
+q4. line 10과 line 11 사이에 p--; p--; p--;하면 temp_name1과 temp_name2가 같은 값이 된다.
+*배열 소멸
+함수 종료 시 함수 내 선언된 객체 배열이 소멸된다
+소멸 순서: Sugeong[2], Sugeong[1], Sugeong[0] 소멸자 실행
+q5. cout << (Sugeong + i)->get_name() << endl;과 cout << (Sugeong + i).get_name() << endl; 중 첫번째 방식을 사용해야 한다. 두번째 방식으로 하면 '식에 클래스 형식이 있어야 하는데 "CStudent *" 형식이 있음'이라고 뜨며 오류가 난다
+q6. int k; int* p = &k; delete p;는 가능하지 않다. heap memory 삭제 시 변수는 삭제되지 않고 힙 메모리 할당이 삭제되는 것이기 때문이다.
+*배열을 지울 때는 delete[] p;로 지운다
+*배열을 초기화 할 때 new 키워드를 사용하면 생성자를 통해 직접 초기값을 지정할 수 없다. 
+int* pArray = new int [10][20]; 이렇게 하면 배열 초기화 불가
+int* pArray = new int[] {1,2,3,4}; 이렇게 초기값을 지정해서 생성해야 한다
+q7. delete a;를 delete[] a;로 바꾸고 delete[] b;를 delete b;로 바꿔야 한다. 하나만 만들었는데 배열을 지우듯이 지울 수 없다
+q8.
+q9.
+q10.
+*객체 배열의 동적 생성 및 반환
+-동적 생성 시 생성자를 일괄적으로 사용할 수 없다
+CStudent* pArray = new CStudent[3]("name", "id", "mbti");
+그래서 CStudent* pArray = new CStudent[3]{CStudent("ABC", "2021", "ISTJ"), CStudent("DEF", "2022", "ISTP"), CStudent("GHI", "2023", "INFJ")};
+이렇게 해야 한다
+q11.
+q12.
+*this 포인터
+-this는 객체 자신에 대한 포인터이다. 클래스 함수 내에서만 사용되고 전역 변수도, 지역 변수도 아니다
+*this 포인터가 필요한 경우
+-멤버 변수와 매개 변수가 이름이 같을 경우
+-제약 조건 : 멤버 함수에서만 사용한다, static member function은 this를 사용할 수 없다
+q13.
+q14.
+q15. CStudent*C로 바꾸면 된다
+q16. 
+*참조
+-참조 객체는 객체의 별명이다. 별도로 객체를 새로 만들지 않는다. 포인터 객체와 달리 멤버 함수 접근하는 연산자가 .임, &가 주소를 의미할 때는 변수 이름 앞에, &가 참조자를 의미할 때는 type의 뒤에 붙는다
+q17. arr+2, arr[2], ref, &ref 중 arr + 2, &ref가 같고, arr[2], ref가 같다
+q18. 주소가 아니라 공간이기 때문이다.
