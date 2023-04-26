@@ -1,0 +1,80 @@
+q1.생성자 2번, 소멸자 2번 실행된다.
+q2.복사 생성자는 2번 실행된다.
+q3. return 0; 부분에서 컴파일 문제가 발생한다.
+q4. copy_data의 소멸자가 실행될 때 힙메모리에 할당한 영역을 해제했는데 data 소멸자가 실행될 때, 이미 해제된 립메모리에 할당한 영역을 해제하려고 했기 때문이다.
+q5. 
+q6.
+#include <iostream>
+using namespace std;
+int sum(int a, int b) { // a부터 b까지 합을 구하기
+	int s = 0;
+	for (int i = a; i <= b; i++)
+		s += i;
+	return s;
+}
+int sum(int a) { // 0부터 a까지 합 구하기
+	int s = 0;
+	for (int i = 0; i <= a; ++i)
+		s += i;
+	return s;
+}
+int func(int a, int b) {
+	int temp;
+	if (a > b)
+		temp = a;
+	else
+		temp = b;
+	return temp;
+}
+int func(int array[], int size) {
+	int temp = array[0];
+	for (int i = 1; i < size; i++)
+	{
+		if (temp < array[i])
+			temp = array[i];
+	}
+	return temp;
+}
+int main() {
+	int array[5] = { 1, 9, -1, 5, 4 };
+	// 2와 3 중 큰 수 반환
+	cout << func(2, 3) << endl; // 2와 3 중 큰 수 반환
+	// 배열 array, array의 크기 5를 이용해 배열에서 가장 큰 수 반환
+	cout << func(array, 5) << endl;
+	return 0;
+}
+q7. 세 번째 방법이 가능하낟. 오른쪽부터 차례대로 하나씩 읽어오기 때문이다.
+q8. 객체 만들기 전에 만들어 놨기 때문에 객체 생성 전에 사용이 가능하다.
+q9. this는 객체 만들어진 다음에 객체를 가리킬 때 쓰기 때문에 static 멤버 함수에 this는 사용할 수 없다.
+q10. class를 이용해 overloading 할 거라 class 이용하는 개념의 연산자는 쓸 수 없다.
+p58.
+#include <iostream>
+using namespace std;
+class Point {
+	int xpos, ypos;
+public:
+	Point(int x = 0, int y = 0) :xpos(x), ypos(y) {}
+	friend Point operator+(const Point& pos1, const Point& pos2);
+	friend Point operator==(const Point& pos1, const Point& pos2);
+	friend Point operator-(const Point& pos1, const Point& pos2);
+};
+Point operator+(const Point& pos1, const Point& pos2) {
+	Point pos(pos1.xpos + pos2.xpos, pos1.ypos + pos2.ypos);
+	return pos;
+}
+Point operator==(const Point& pos1, const Point& pos2) {
+	Point pos(pos1.xpos == pos2.xpos, pos1.ypos == pos2.ypos);
+	return pos;
+}
+Point operator-(const Point& pos1, const Point& pos2) {
+	Point pos(pos1.xpos - pos2.xpos, pos1.ypos - pos2.ypos);
+	return pos;
+}
+int main(void) {
+	Point pos1(3, 4);
+	Point pos2(10, 20);
+	Point pos3 = pos1 + pos2;
+	Point pos4 = pos1 - pos2;
+	Point pos5 = pos1 == pos2;
+	return 0;
+}
